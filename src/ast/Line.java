@@ -1,5 +1,7 @@
 package ast;
 
+import java.util.Objects;
+
 public class Line {
     private String assignee = null;
     private Expression expr = null;
@@ -15,10 +17,25 @@ public class Line {
     }
     public String evaluate() {
         Eval eval = expr.evaluate(this.program);
-        if (this.assignee != null) {
-            program.setMemory(eval.memoryId);
+        String line = "";
+
+        switch (eval.evalType) {
+            case MEMORY -> {
+                line = String.format("m[%d]", eval.getMemory());
+            }
+            case VALUE -> {
+                line = Double.toString(eval.getValue());
+            }
+            case CODE -> {
+                String code = eval.getCode();
+                if (this.assignee != null) {
+                    String assign = String.format("MOV m[%s] %s", assignee, eval.getOp1());
+                    return code + "\n" + assign;
+                }
+                return code;
+            }
         }
-        System.out.println(eval.getValue());
-        return eval.getValue();
+
+        return String.format("MOV m[%s] %s", this.assignee, line);
     }
 }

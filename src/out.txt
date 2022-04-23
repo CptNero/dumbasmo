@@ -1,2 +1,7 @@
-27.0
-ADD 19.0 MUL 2.0 null
+MOV m[1] 27.0
+MUL m[1] 2.0
+ADD m[1] 19.0
+MUL m[1] 300.0
+MOV m[2] m[1]
+DIV m[1] 30.0
+SUB m[2] m[1]

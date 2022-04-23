@@ -35,8 +35,8 @@ start
 
 line [ ast.Program p ] returns [ ast.Line node ]
     : expression { $node = new ast.Line($p, $expression.node); }
-    | MEMORY LBRAC NUMBER RBRAC '=' expression { $node = new ast.Line($p, $expression.node); }
-    | READ LPAR NUMBER RPAR
+    | MEMORY LBRAC NUMBER RBRAC '=' expression { $node = new ast.Line($p, $expression.node, $NUMBER.text); }
+    | READ LPAR NUMBER RPAR { p.addCode("READ m[" + $NUMBER.text + "]"); }
     ;
 
 expression returns [ ast.Expression node ]

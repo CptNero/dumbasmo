@@ -1,4 +1,4 @@
 cd ast
-javac *.java
+javac -g *.java
 cd ..
-javac *.java
+javac -g *.java

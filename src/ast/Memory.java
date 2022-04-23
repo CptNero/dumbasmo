@@ -1,11 +1,12 @@
 package ast;
 
 public class Memory extends Expression {
-    private String id;
+    private int id;
+
     public Memory(String id) {
-        this.id = String.format("m[%s]", id);
+        this.id = Integer.parseInt(id);
     }
     public Eval evaluate(Program p) {
-        return new Eval(true, p.getMemory());
+        return new Eval(this.id, this.id);
     }
 }
